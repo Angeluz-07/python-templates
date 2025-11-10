@@ -1,0 +1,33 @@
+ 
+version: "3.8"
+
+services: 
+  db:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=${DATABASE_NAME}
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+    volumes:
+      - db_data:/var/lib/postgresql/data
+  web_app:    
+    build: .
+    command: sh -c "python weather/manage.py makemigrations &&
+                    python weather/manage.py migrate &&
+                    python weather/manage.py runserver 0.0.0.0:8000"
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_ENGINE=${DATABASE_ENGINE}
+      - DATABASE_NAME=${DATABASE_NAME}
+      - DATABASE_USER=${DATABASE_USER}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - DATABASE_HOST=db # same as db service name
+      - DATABASE_PORT=${DATABASE_PORT}
+      - OPEN_WEATHER_API_KEY=${OPEN_WEATHER_API_KEY}
+    depends_on:
+      - db
+volumes:
+  db_data:
