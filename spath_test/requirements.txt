@@ -1,0 +1,5 @@
+fastapi[standard]
+pytest
+pymongo
+sqlalchemy
+psycopg2-binary

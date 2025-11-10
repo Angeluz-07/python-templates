@@ -6,3 +6,4 @@ Sandbox project to learn and practice new technologies and keep clean templates 
 - fastapi : TODO API Rest built with FastAPI and in-memory repository.
 - flask_api(todo)
 - pyspark_app(todo)
+- spath_test : technical test for senior backend python developer interview

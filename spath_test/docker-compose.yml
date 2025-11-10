@@ -1,0 +1,40 @@
+version: '3.8'
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb_for_fastapi
+    restart: always
+    ports:
+      # Map the container's standard MongoDB port (27017) to your host machine's port 27017
+      - "27017:27017"
+    environment:
+      # MongoDB initializes authentication with these variables on first run
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      # This is the default database that will be created and used by your FastAPI app
+      MONGO_INITDB_DATABASE: ${MONGO_DB_NAME}
+    volumes:
+      # Persist the data in a local volume so it is not lost when the container stops
+      - mongodb_data:/data/db
+  postgres:
+    image: postgres:latest
+    container_name: postgres_for_fastapi
+    restart: always
+    ports:
+    - "5432:5432" # Standard PostgreSQL port
+    environment:
+      # PostgreSQL initializes authentication and database setup
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      # FIX: Explicitly specify the internal data directory to prevent version conflicts
+      PGDATA: /var/lib/postgresql/data/pgdata 
+    volumes:
+      # Volume for data persistence
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  mongodb_data:
+    driver: local
+  postgres_data:
+    driver: local
