@@ -1,0 +1,15 @@
+repos:
+- repo: local
+  hooks:
+  - id: semantic-commit-msg
+    name: Check semantic commit message format
+    entry: python ./git_hooks/enforce_semantic_commit_msg.py
+    language: python
+    stages : [commit-msg]
+- repo: https://github.com/psf/black
+  rev: stable
+  hooks:
+  - id: black
+    args: [--line-length=79, --skip-string-normalization]
+    name: Check formatted code  
+    stages: [commit]

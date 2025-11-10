@@ -1,0 +1,7 @@
+Flask
+
+# Linting
+flake8
+
+# Automation tools
+pre-commit
