@@ -1,0 +1,1 @@
+docker build -t mri-medical-app-backend-django .

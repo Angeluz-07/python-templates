@@ -8,3 +8,4 @@ Sandbox project to learn and practice new technologies and keep clean templates 
 - pyspark_app(todo)
 - test_spath : technical test for senior backend python dev interview
 - test_dgrid : technical test for backend ml python engineer interview
+- django_auth : example of auth api RESTful with django and django rest
